@@ -1,0 +1,25 @@
+{
+  "name": "api-solicitud",
+  "version": "1.0.0",
+  "description": "Servidor Rest API para la demo de aplicacion solicitud de credrito Alkimia Consultores.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alkimia Consultores",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.9.3",
+    "mongoose-schematypes-extend": "^0.3.2",
+    "mongoose-type-email": "^1.0.5",
+    "request": "^2.81.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
