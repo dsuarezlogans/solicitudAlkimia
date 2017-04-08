@@ -33,6 +33,16 @@
         });
     };
 
+    exports.findByInstancia = (req, res) => {
+        Solicitud.findOne({'numero_instancia' : req.params.instancia}, (err, solicitud) => {
+            if (err) return res.send(500, err.message);
+
+            console.log('GET /solicitud/instancia/' + req.params.instancia);
+            res.status(200).jsonp(solicitud);
+        });
+    };
+
+
     //POST - Inserta datos
     exports.addSolicitud = (req, res) => {
         console.log('POST /solicitud');
@@ -48,6 +58,9 @@
             empleador: req.body.empleador,
             telefono_empleador: req.body.telefono_empleador,
             direccion_empleador: req.body.direccion_empleador,
+            monto_credito: req.body.monto_credito,
+            numero_instancia: req.body.numero_instancia,
+            comentarios: req.body.comentarios,
             estado_solicitud: req.body.estado_solicitud,
         });
 
@@ -69,6 +82,9 @@
             solicitud.empleador = req.body.empleador;
             solicitud.telefono_empleador = req.body.telefono_empleador;
             solicitud.direccion_empleador = req.body.direccion_empleador;
+            solicitud.monto_credito = req.body.monto_credito;
+            solicitud.numero_instancia = req.body.numero_instancia;
+            solicitud.comentarios = req.body.comentarios,
             solicitud.estado_solicitud = req.body.estado_solicitud;
 
             solicitud.save((err) => {

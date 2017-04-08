@@ -41,7 +41,8 @@
 
         var verificacion = new Verificacion({
             dni: req.body.dni,
-            estado_dni: req.body.estado_dni
+            estado_dni: req.body.estado_dni,
+            monto_credito: req.body.monto_credito
         });
 
         verificacion.save((err, verificacion) => {
@@ -53,8 +54,9 @@
     //PUT - Actualiza datos existentes
     exports.updateVerificacion = (req, res) => {
         Verificacion.findById(req.params.id, function(err, verificacion) {
-            verificacion.dni = req.body.nombre_usuario;
-            verificacion.estado_dni = req.body.password;
+            verificacion.dni = req.body.dni;
+            verificacion.estado_dni = req.body.estado_dni;
+            verificacion.monto_credito = req.body.monto_credito;
 
             verificacion.save((err) => {
                 if (err) return res.status(500).send(err.message);

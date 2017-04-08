@@ -51,6 +51,9 @@
     rutas.route('/solicitud/dni/:dni')
         .get(ctrlSolicitud.findByDni);
 
+    rutas.route('/solicitud/instancia/:instancia')
+        .get(ctrlSolicitud.findByInstancia);
+
     //API RESt Usuario
     rutas.route('/usuario')
         .get(ctrlUsuario.findAllUsuario)
@@ -58,8 +61,8 @@
 
     rutas.route('/usuario/:id')
         .get(ctrlUsuario.findById)
-        .put(ctrlUsuario.updateUsuario)
-        .delete(ctrlUsuario.deleteUsuario);
+        //.put(ctrlUsuario.updateUsuario)
+        //.delete(ctrlUsuario.deleteUsuario);
 
     rutas.route('/usuario/name/:name')
         .get(ctrlUsuario.findByName);
@@ -71,8 +74,8 @@
 
     rutas.route('/verificacion/:id')
         .get(ctrlVerificacion.findById)
-        .put(ctrlVerificacion.updateVerificacion)
-        .delete(ctrlVerificacion.deleteVerificacion);
+        //.put(ctrlVerificacion.updateVerificacion)
+        //.delete(ctrlVerificacion.deleteVerificacion);
 
     rutas.route('/verificacion/dni/:dni')
         .get(ctrlVerificacion.findByDni);

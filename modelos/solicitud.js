@@ -34,6 +34,23 @@
             direccion_empleador: {
                 type: "String"
             },
+            monto_credito: {
+                type: Number
+            },
+            numero_instancia: {
+                type: "String"
+            },
+            comentarios: [{
+                usuario_comentario: {
+                    type: "String"
+                },
+                fecha_comentario: {
+                    type: "String"
+                },
+                comentario: {
+                    type: "String"
+                },
+            }],
             estado_solicitud: String
         });
 
