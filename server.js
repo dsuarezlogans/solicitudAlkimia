@@ -20,9 +20,13 @@
     });
 
     //Modelos de datos
-    const Acreedor = require('./modelos/acreedor.js')(app, mongoose);
+    const Solicitud = require('./modelos/solicitud.js')(app, mongoose);
+    const Usuario = require('./modelos/usuario.js')(app, mongoose);
+    const Verificacion = require('./modelos/verificacion.js')(app, mongoose);
     // Controladores de las rutas
-    const ctrl = require('./controladores/acreedor.js');
+    const ctrlSolicitud = require('./controladores/solicitud.js');
+    const ctrlUsuario = require('./controladores/usuario.js');
+    const ctrlVerificacion = require('./controladores/verificacion.js');
 
 
     // Middlewares
@@ -32,17 +36,46 @@
     app.use(bodyParser.json());
     app.use(cors());
 
-    //API RESt Acreedor
+    //API RESt Solicitud
     const rutas = express.Router();
 
-    rutas.route('/acreedor')
-        .get(ctrl.findAllAcreedor)
-        .post(ctrl.addAcreedor);
+    rutas.route('/solicitud')
+        .get(ctrlSolicitud.findAllSolicitud)
+        .post(ctrlSolicitud.addSolicitud);
 
-    rutas.route('/acreedor/:id')
-        .get(ctrl.findById)
-        .put(ctrl.updateAcreedor)
-        .delete(ctrl.deleteAcreedor);
+    rutas.route('/solicitud/:id')
+        .get(ctrlSolicitud.findById)
+        .put(ctrlSolicitud.updateSolicitud)
+        .delete(ctrlSolicitud.deleteSolicitud);
+
+    rutas.route('/solicitud/dni/:dni')
+        .get(ctrlSolicitud.findByDni);
+
+    //API RESt Usuario
+    rutas.route('/usuario')
+        .get(ctrlUsuario.findAllUsuario)
+        .post(ctrlUsuario.addUsuario);
+
+    rutas.route('/usuario/:id')
+        .get(ctrlUsuario.findById)
+        .put(ctrlUsuario.updateUsuario)
+        .delete(ctrlUsuario.deleteUsuario);
+
+    rutas.route('/usuario/name/:name')
+        .get(ctrlUsuario.findByName);
+
+    //API RESt Verificacion
+    rutas.route('/verificacion')
+        .get(ctrlVerificacion.findAllVerificacion)
+        .post(ctrlVerificacion.addVerificacion);
+
+    rutas.route('/verificacion/:id')
+        .get(ctrlVerificacion.findById)
+        .put(ctrlVerificacion.updateVerificacion)
+        .delete(ctrlVerificacion.deleteVerificacion);
+
+    rutas.route('/verificacion/dni/:dni')
+        .get(ctrlVerificacion.findByDni);
 
     app.use('/api', rutas);
 

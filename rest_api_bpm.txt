@@ -1,0 +1,55 @@
+rutaBase = http://ec2-54-68-67-195.us-west-2.compute.amazonaws.com:8080/business-central
+
+Iniciar instancia
+rutaBase + /rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/originacionCredito.Originacion/start
+
+basic auth
+usrSolicitud
+123
+
+HeaderName = "Authorization";
+Value = "Basic " + "dXNyU29saWNpdHVkOjEyMw==";
+
+Abortar instancia
+rutaBase + /rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/instance/{2625}/abort
+
+lista de tareas
+rutaBase +/rest/task/query
+
+las tareas vienen con un estado, solo hay que mostrar el estado "Ready" y su id de tarea que se utiliza para las siguientes peticiones
+
+tarea reclamar (claim)
+http://ec2-54-68-67-195.us-west-2.compute.amazonaws.com:8080/business-central/rest/task/{2614}/claim
+
+tarea iniciar (start)
+http://ec2-54-68-67-195.us-west-2.compute.amazonaws.com:8080/business-central/rest/task/{2614}/start
+
+tarea completar (complete)
+http://ec2-54-68-67-195.us-west-2.compute.amazonaws.com:8080/business-central/rest/task/{2614}/complete
+
+tarea soltar (release)
+http://ec2-54-68-67-195.us-west-2.compute.amazonaws.com:8080/business-central/rest/task/{2614}/release
+
+Para un proceso normal del una tarea estado
+1. claim
+2. start
+3. complete
+
+cambiar la variable para evaluar el flujo
+
+cambio de variable (signalEvent)
+
+rutaBase + /rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/instance/{2608}/signal?signal={signalVerificacion}&event={SI}
+
+el numero de instancia
+el nombre de la señal dependiendo del momento del proceso donde se encuentre la instancia puede ser
+	signalVerificacion
+	signalEvaluacion
+	signalMonto
+el evento para cualquier señal (variable) solo puede ser "SI" o "NO" dependiendo de la decision del usuario
+
+imagen del proceso
+
+rutaBase + /rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/originacionCredito.Originacion/image
+
+
