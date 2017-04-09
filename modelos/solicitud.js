@@ -30,7 +30,7 @@
                 type: "String",
                 //validphone: true
             },
-            email: mongoose.SchemaTypes.Email,
+            email: String,
             empleador: {
                 type: "String",
                 capitalizeAll: true

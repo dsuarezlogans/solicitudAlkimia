@@ -1,12 +1,11 @@
 (function() {
     'use strict';
-    
+
     //node_modules
     const express = require('express');
     const bodyParser = require('body-parser');
     const mongoose = require('mongoose');
-                     require('mongoose-schematypes-extend')(mongoose);
-                     require('mongoose-type-email');
+                     require('mongoose-schematypes-extend')(mongoose);                     
     const cors = require('cors');
 
     //Inicializadores del Server
