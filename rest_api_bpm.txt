@@ -8,7 +8,7 @@ usrSolicitud
 123
 
 HeaderName = "Authorization";
-Value = "Basic " + "dXNyU29saWNpdHVkOjEyMw==";
+Value = "Basic " + "Base64Password";
 
 Abortar instancia
 rutaBase + /rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/instance/{2625}/abort
@@ -51,5 +51,13 @@ el evento para cualquier señal (variable) solo puede ser "SI" o "NO" dependiendo
 imagen del proceso
 
 rutaBase + /rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/originacionCredito.Originacion/image
+
+falta campos para solicitud
+
+monto credito
+arreglo comentarios
+numero de instacia
+
+ruta para obtener la solictud por instancia
 
 

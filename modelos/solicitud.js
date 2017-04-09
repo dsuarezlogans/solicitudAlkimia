@@ -2,10 +2,18 @@
     'use strict';
     exports = module.exports = function(app, mongoose) {
 
+        const Comentarios = new mongoose.Schema({
+            titulo: String,
+            cuerpo: String,
+            fecha: Date,
+            usuario:String
+        });
+
         const SolicitudSchema = new mongoose.Schema({
+            idInstancia:Number,
             dni: {
                 type: Number,
-                min: [8, 'Dni invalido!']
+                minlength: [8, 'Dni invalido!']
             },
             nombre_cliente: {
                 type: "String",
@@ -34,6 +42,8 @@
             direccion_empleador: {
                 type: "String"
             },
+            monto_credito: Number,
+            comentarios:[Comentarios],
             estado_solicitud: String
         });
 

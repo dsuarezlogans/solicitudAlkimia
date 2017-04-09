@@ -22,17 +22,7 @@
             console.log('GET /usuario/' + req.params.id);
             res.status(200).jsonp(usuario);
         });
-    };
-
-    //GET - Regresa datos de un nombre especifico
-    exports.findByName = (req, res) => {
-        Usuario.findOne({'nombre_usuario' : req.params.name}, (err, usuario) => {
-            if (err) return res.send(500, err.message);
-
-            console.log('GET /usuario/name/' + req.params.name);
-            res.status(200).jsonp(usuario);
-        });
-    };
+    };   
 
     //POST - Inserta datos
     exports.addUsuario = (req, res) => {
@@ -60,7 +50,7 @@
             usuario.password = req.body.password;
             usuario.roles = req.body.roles;
             usuario.cadena_acceso = req.body.cadena_acceso;
-            
+
 
             usuario.save((err) => {
                 if (err) return res.status(500).send(err.message);
