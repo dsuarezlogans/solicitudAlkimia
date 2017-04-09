@@ -20,7 +20,8 @@
         }, (error, response, body) => {
             const resq = JSON.parse(body);
             const tareasBpm = resq.taskSummaryList;
-
+            console.log(body);
+            console.log("asdasdad");
             const tarea = _.each(tareasBpm, (value, key) => {
                 if (value.status !== 'Completed') {
                     O.push({
@@ -46,11 +47,12 @@
         const headers = {
             'Accept': 'application/json'
         };
-
+        console.log(urlIniciar);
         request.post({
             url: urlIniciar,
             headers: headers
         }, function(error, response, body) {
+
             //if(O.length <= 0) return res.status(400).jsonp({mensaje:'Error al avanzar instancia'});
             console.log('GET /instancia/iniciar');
             res.status(200).send(body);
@@ -85,7 +87,9 @@
             }, function(error, response, body) {
                 //if(O.length <= 0) return res.status(400).jsonp({mensaje:'Error al avanzar instancia'});
                 console.log('GET /instancia/avanzar');
-                res.status(200).jsonp({mensaje: "instancia avanzada"});
+                res.status(200).jsonp({
+                    mensaje: "instancia avanzada"
+                });
             });
         };
     };

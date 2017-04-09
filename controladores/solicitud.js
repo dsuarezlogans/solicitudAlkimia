@@ -49,6 +49,7 @@
         console.log(req.body);
 
         var solicitud = new Solicitud({
+	    idInstancia:req.body.idInstancia,
             nombre_cliente: req.body.nombre_cliente,
             direccion: req.body.direccion,
             telefono_fijo: req.body.telefono_fijo,
