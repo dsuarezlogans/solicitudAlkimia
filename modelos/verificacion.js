@@ -5,11 +5,14 @@
         const VerificacionSchema = new mongoose.Schema({
             dni: {
                 type: Number,
-                minlength: 8
+                min: [8, 'Dni invalido!']
             },
             estado_dni: {
-                type: "String"
-            }            
+                type: "Boolean"
+            },
+            monto_credito: {
+                type: Number
+            }
         });
 
         mongoose.model('Verificacion', VerificacionSchema);

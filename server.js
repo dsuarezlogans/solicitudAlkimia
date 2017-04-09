@@ -1,5 +1,6 @@
 (function() {
     'use strict';
+    
     //node_modules
     const express = require('express');
     const bodyParser = require('body-parser');
@@ -60,7 +61,7 @@
     //API RESt Usuario
     rutas.route('/usuario/:id')
         .get(ctrlUsuario.findById);
-        
+
     //API RESt Verificacion
     rutas.route('/verificacion/dni/:dni')
          .get(ctrlVerificacion.findByDni);
