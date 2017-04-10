@@ -3,6 +3,10 @@
 
     const request = require('request');
     const _ = require('lodash');
+    const moment = require('moment');
+    const mongoose = require('mongoose');
+    const q = require('q');
+    const Solicitud = mongoose.model('Solicitud');
     const baseUrl = 'ec2-54-68-67-195.us-west-2.compute.amazonaws.com:8080/business-central';
 
     exports.listaTareas = (req, res) => {
@@ -13,6 +17,7 @@
         const headers = {
             'Accept': 'application/json'
         };
+        var task = [];
 
         request({
             url: url,
@@ -20,23 +25,38 @@
         }, (error, response, body) => {
             const resq = JSON.parse(body);
             const tareasBpm = resq.taskSummaryList;
-            console.log(body);
-            console.log("asdasdad");
-            const tarea = _.each(tareasBpm, (value, key) => {
+
+            _.each(tareasBpm, (value, key) => {
                 if (value.status !== 'Completed') {
+
+                    var day = moment(value['created-on']);
                     O.push({
                         idInstancia: value['process-instance-id'],
                         nombreTarea: value.name,
-                        idTarea: value.id
+                        idTarea: value.id,
+                        fechaInicio: day
                     });
                 }
             });
-            if (O.length <= 0) return res.status(400).jsonp({
-                mensaje: 'No hay tareas disponible'
-            });
-            console.log('GET /tareas');
-            res.status(200).send(O);
 
+            if (O.length <= 0) return res.status(200).jsonp([{mensaje:"no hay tareas disponibles"}]);
+
+            O.solicitud = {};
+
+            buscarSolicitud();
+            var count=0;
+            function buscarSolicitud() {
+              _.each(O, (value, key) => {
+                  Solicitud.findOne({
+                      'idInstancia': value.idInstancia
+                  }, (err, Sol) => {
+                      if (err) return {};
+                      O[key].solicitud = Sol;
+                      if(count>= O.length) res.status(200).jsonp(O);
+                      count++;
+                  });
+              });
+            }
         });
     };
 
@@ -64,6 +84,7 @@
         const idTarea = req.params.id;
         const user = req.params.user;
         const pass = req.params.pass;
+        const urlClaim = `http://${user}:${pass}@${baseUrl}/rest/task/${idTarea}/claim`;
         const urlStart = `http://${user}:${pass}@${baseUrl}/rest/task/${idTarea}/start`;
         const urlComplete = `http://${user}:${pass}@${baseUrl}/rest/task/${idTarea}/complete`;
         const headers = {
@@ -71,22 +92,37 @@
         };
 
         request.post({
-            url: urlStart,
+            url: urlClaim,
             headers: headers
         }, function(error, response, body) {
 
             //if(O.length <= 0) return res.status(400).jsonp({mensaje:'Error al avanzar instancia'});
-            console.log('GET /instancia/avanzar');
-            completar();
+            console.log('GET /instancia/claim');
+            iniciar();
         });
+
+        const iniciar = () => {
+            request.post({
+                url: urlStart,
+                headers: headers
+            }, function(error, response, body) {
+
+                //if(O.length <= 0) return res.status(400).jsonp({mensaje:'Error al avanzar instancia'});
+                console.log('GET /instancia/start');
+                completar();
+            });
+        };
 
         const completar = () => {
             request.post({
                 url: urlComplete,
                 headers: headers
             }, function(error, response, body) {
-                //if(O.length <= 0) return res.status(400).jsonp({mensaje:'Error al avanzar instancia'});
-                console.log('GET /instancia/avanzar');
+                if (error) return res.status(400).jsonp({
+                    mensaje: 'Error al avanzar instancia',
+                    error: error
+                });
+                console.log('GET /instancia/complete');
                 res.status(200).jsonp({
                     mensaje: "instancia avanzada"
                 });
@@ -114,4 +150,5 @@
         });
 
     };
+
 }());

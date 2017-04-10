@@ -50,6 +50,7 @@
 
     //API RESt Solicitud
     rutas.route('/solicitud')
+         .get(ctrlSolicitud.findAllSolicitud)
          .post(ctrlSolicitud.addSolicitud);
     rutas.route('/solicitud/:id')
          .get(ctrlSolicitud.findById)
@@ -58,8 +59,8 @@
          .get(ctrlSolicitud.findByInstancia);
 
     //API RESt Usuario
-    rutas.route('/usuario/:id')
-        .get(ctrlUsuario.findById);
+    rutas.route('/usuario/:user')
+        .get(ctrlUsuario.findByUser);
 
     //API RESt Verificacion
     rutas.route('/verificacion/dni/:dni')

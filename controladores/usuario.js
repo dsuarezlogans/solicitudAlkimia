@@ -22,7 +22,17 @@
             console.log('GET /usuario/' + req.params.id);
             res.status(200).jsonp(usuario);
         });
-    };   
+    };
+
+    exports.findByUser = (req, res) => {
+        Usuario.findOne({"nombre_usuario":req.params.user}, (err, usuario) => {
+            if (err) return res.send(500, err.message);
+
+            console.log('GET /usuario/' + req.params.user);
+            console.log(usuario)
+            res.status(200).jsonp(usuario);
+        });
+    };
 
     //POST - Inserta datos
     exports.addUsuario = (req, res) => {

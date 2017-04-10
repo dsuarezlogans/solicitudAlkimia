@@ -85,7 +85,7 @@
             solicitud.direccion_empleador = req.body.direccion_empleador;
             solicitud.monto_credito = req.body.monto_credito;
             solicitud.numero_instancia = req.body.numero_instancia;
-            solicitud.comentarios = req.body.comentarios,
+            solicitud.comentarios = req.body.comentarios;
             solicitud.estado_solicitud = req.body.estado_solicitud;
 
             solicitud.save((err) => {
