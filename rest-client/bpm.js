@@ -17,19 +17,17 @@
         const headers = {
             'Accept': 'application/json'
         };
-        var task = [];
 
         request({
             url: url,
             headers: headers
         }, (error, response, body) => {
             const resq = JSON.parse(body);
-            const tareasBpm = resq.taskSummaryList;
-
+            const tareasBpm = resq.taskSummaryList;            
             _.each(tareasBpm, (value, key) => {
                 if (value.status !== 'Completed') {
-
                     var day = moment(value['created-on']);
+
                     O.push({
                         idInstancia: value['process-instance-id'],
                         nombreTarea: value.name,
@@ -39,27 +37,41 @@
                 }
             });
 
-            if (O.length <= 0) return res.status(200).jsonp([{mensaje:"no hay tareas disponibles"}]);
-
-            O.solicitud = {};
-
-            buscarSolicitud();
-            var count=0;
-            function buscarSolicitud() {
-              _.each(O, (value, key) => {
-                  Solicitud.findOne({
-                      'idInstancia': value.idInstancia
-                  }, (err, Sol) => {
-                      if (err) return {};
-                      O[key].solicitud = Sol;
-                      if(count>= O.length) res.status(200).jsonp(O);
-                      count++;
-                  });
-              });
+            if (O.length <= 0) return res.status(200).jsonp([{
+                mensaje: "no hay tareas disponibles"
+            }]);
+            function findPromise(o) {
+                return new Promise((resolve, reject) => {
+                  var a = [];
+                  var size = o.length;
+                    _.each(o, (value, key) => {
+                        Solicitud.findOne({
+                            'idInstancia': value.idInstancia
+                        }, (err, Sol) => {
+                            if (err) return reject(err);
+                            let count=0;
+                            _.each(O, (value, key) => {
+                                if (value.idInstancia === Sol.idInstancia) {
+                                    value.solicitud = {};
+                                    value.solicitud = Sol;
+                                    a.unshift(value);
+                                    if(size === a.length) resolve(a);
+                                }
+                            });
+                        });
+                    });
+                });
             }
+            findPromise(O)
+                .then((O) => {
+                    res.jsonp(O);
+                })
+                .catch((err) => {
+                    console.log("An error occurred. Error: ", err);
+                });
+
         });
     };
-
     exports.iniciarInstancia = (req, res) => {
         const user = req.params.user;
         const pass = req.params.pass;
@@ -131,6 +143,22 @@
     };
 
 
+    exports.modelo = (req, res) => {
+        const user = req.params.user;
+        const pass = req.params.pass;
+        const instancia = req.params.id;
+        const urlModelo = `http://${user}:${pass}@${baseUrl}/rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/originacionCredito.Originacion/image/${instancia}`;
+
+        request.get({
+            url: urlModelo
+        }, function(error, response, body) {
+            //if(O.length <= 0) return res.status(400).jsonp({mensaje:'Error al avanzar instancia'});
+            console.log('GET /modelo');
+            res.status(200).send(body);
+        });
+
+    };
+
     exports.señalInstancia = (req, res) => {
         const signal = req.params.signal;
         const id = req.params.id;
@@ -139,7 +167,6 @@
         const headers = {
             'Accept': 'application/json'
         };
-        console.log(urlSignal);
         request.post({
             url: urlSignal,
             headers: headers

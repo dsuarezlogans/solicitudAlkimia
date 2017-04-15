@@ -6,9 +6,8 @@
 
   exports.tareasBpm = (req, res) => {
     const Tareas = tareas.listaTareas(req.params.user,req.params.pass);
-          if(Tareas.length <= 0) return res.status(200).send({"mensaje":"No hay tareas disponible"});
           console.log('GET /tareas');
-          console.log(Tareas);
+          if(Tareas.length <= 0) return res.status(200).send({"mensaje":"No hay tareas disponible"});                   
           res.status(200).send(Tareas);
   };
 }());

@@ -7,9 +7,8 @@
     //GET - Regresa todos los datos de la coleccion
     exports.findAllSolicitud = (req, res) => {
         Solicitud.find((err, solicitud) => {
-            if (err) return res.send(500, err.message);
-
             console.log('GET /solicitud');
+            if (err) return res.send(500, err.message);
             res.status(200).jsonp(solicitud);
         });
     };
@@ -17,27 +16,25 @@
     //GET - Regresa datos de un id especifico
     exports.findById = (req, res) => {
         Solicitud.findById(req.params.id, (err, solicitud) => {
-            if (err) return res.send(500, err.message);
-
             console.log('GET /solicitud/' + req.params.id);
+            if (err) return res.send(500, err.message);
             res.status(200).jsonp(solicitud);
         });
     };
 
     exports.findByDni = (req, res) => {
         Solicitud.findOne({'dni' : req.params.dni}, (err, solicitud) => {
-            if (err) return res.send(500, err.message);
-
             console.log('GET /solicitud/dni/' + req.params.dni);
+            if (err) return res.send(500, err.message);
             res.status(200).jsonp(solicitud);
         });
     };
 
     exports.findByInstancia = (req, res) => {
-        Solicitud.findOne({'numero_instancia' : req.params.instancia}, (err, solicitud) => {
-            if (err) return res.send(500, err.message);
-
+        Solicitud.findOne({'idInstancia' : req.params.instancia}, (err, solicitud) => {
             console.log('GET /solicitud/instancia/' + req.params.instancia);
+            console.log(solicitud);
+            if (err) return res.send(500, err.message);
             res.status(200).jsonp(solicitud);
         });
     };
@@ -45,11 +42,10 @@
 
     //POST - Inserta datos
     exports.addSolicitud = (req, res) => {
-        console.log('POST /solicitud');
-        console.log(req.body);
+
 
         var solicitud = new Solicitud({
-	    idInstancia:req.body.idInstancia,
+	          idInstancia:req.body.idInstancia,
             nombre_cliente: req.body.nombre_cliente,
             direccion: req.body.direccion,
             telefono_fijo: req.body.telefono_fijo,
@@ -66,6 +62,7 @@
         });
 
         solicitud.save((err, solicitud) => {
+            console.log('POST /solicitud');
             if (err) return res.status(500).send(err.message);
             res.status(200).jsonp(solicitud);
         });
@@ -87,8 +84,10 @@
             solicitud.numero_instancia = req.body.numero_instancia;
             solicitud.comentarios = req.body.comentarios;
             solicitud.estado_solicitud = req.body.estado_solicitud;
+            solicitud.nota_verificacion = req.body.nota_verificacion;
 
             solicitud.save((err) => {
+              console.log('PUT /solicitud/',req.params.id);
                 if (err) return res.status(500).send(err.message);
                 res.status(200).jsonp(solicitud);
             });
@@ -99,6 +98,7 @@
     exports.deleteSolicitud = (req, res) => {
         Solicitud.findById(req.params.id, (err, solicitud) => {
             solicitud.remove((err)=> {
+                console.log('DELETE /solicitud/',req.params.id);
                 if (err) return res.status(500).send(err.message);
                 res.status(200).send();
             });

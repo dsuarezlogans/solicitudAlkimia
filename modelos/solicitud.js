@@ -39,6 +39,9 @@
                 type: "String",
                 //validphone: true
             },
+            nota_verificacion: {
+                type: "String"
+            },
             direccion_empleador: {
                 type: "String"
             },

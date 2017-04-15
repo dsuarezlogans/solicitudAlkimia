@@ -1,0 +1,26 @@
+***el usuario funcionario debe tener en la actividad de pre evaluacion un combo de tipo signalPreEvaluacion(combo tipo de verificacion 1:Verificacion domiciliaria /campo"NO" 2:Verificacion por escritorio"SI")
+
+**simulacion de sistema legado el cual emite scoring basado en el monto, se envia señal "signalMonto" si es check = true de "SI" o si es check = false de "NO"
+
+**se aprueba mediante un check que indica aprobacion se envia señal signalAprobacion con eventos "SI" para aprobado y "NO" para no aprobado
+
+funcionario - estados - realizan(Pre-evaluacion,evaluacion,firma)
+	*Por Pre-evaluacion - Combo tipo de verificacion "1:Verificacion domiciliaria /campo"NO" 2:Verificacion por escritorio"SI""***
+	*Por Evaluar
+	*Por Aprobacion - leer text de verificacion, check de monto mayor("520")**
+	*Por Firmar - enlaces de descarga(contacto,pagare,2 seguros)
+	  (estado cancelado en el caso de no aprobado Cancelado)
+
+
+solicitud - estados - realizan(solicitud,validacion)
+	*Por Validar (se valida el dni)
+	*Por Verificar - textearea con nota de verificacion
+
+verificacion - estados - realizan(validacion)
+	*Por Verificar - textearea con nota de verificacion
+
+aprobador - estados -realizan(aprobacion)
+	*Por Aprobar - check de aprobacion
+
+caja - estados -realizan(desembolso)
+	*Por Completar - check recibe doc, enlaces de descarga(cronograma, constancia de entrega de producto)

@@ -29,7 +29,8 @@
             if (err) return res.send(500, err.message);
 
             console.log('GET /usuario/' + req.params.user);
-            console.log(usuario)
+            if(!usuario) return res.status(200).send(false);
+            
             res.status(200).jsonp(usuario);
         });
     };

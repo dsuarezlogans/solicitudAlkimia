@@ -47,6 +47,8 @@
             .post(reqBpm.señalInstancia);
     rutas.route('/instancia/iniciar/:user/:pass')
             .post(reqBpm.iniciarInstancia);
+    rutas.route('/modelo/:user/:pass/:id')
+            .get(reqBpm.modelo);
 
     //API RESt Solicitud
     rutas.route('/solicitud')
