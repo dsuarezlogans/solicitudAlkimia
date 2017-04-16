@@ -9,7 +9,7 @@
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "echo \"Error: no test specifiedda\" && exit 1"
     },
     "author": "Alkimia Consultores",
     "license": "ISC",

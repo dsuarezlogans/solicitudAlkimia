@@ -23,7 +23,7 @@
             headers: headers
         }, (error, response, body) => {
             const resq = JSON.parse(body);
-            const tareasBpm = resq.taskSummaryList;            
+            const tareasBpm = resq.taskSummaryList;
             _.each(tareasBpm, (value, key) => {
                 if (value.status !== 'Completed') {
                     var day = moment(value['created-on']);
@@ -44,6 +44,8 @@
                 return new Promise((resolve, reject) => {
                   var a = [];
                   var size = o.length;
+                  console.log("---------FALLA--------");
+                  console.log(o);
                     _.each(o, (value, key) => {
                         Solicitud.findOne({
                             'idInstancia': value.idInstancia
