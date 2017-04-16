@@ -52,6 +52,7 @@
                         }, (err, Sol) => {
                             if (err) return reject(err);
                             let count=0;
+                            console.log(Sol);
                             _.each(O, (value, key) => {
                                 if (value.idInstancia === Sol.idInstancia) {
                                     value.solicitud = {};
