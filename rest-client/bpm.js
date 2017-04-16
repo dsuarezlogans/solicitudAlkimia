@@ -44,15 +44,12 @@
                 return new Promise((resolve, reject) => {
                   var a = [];
                   var size = o.length;
-                  console.log("---------FALLA--------");
-                  console.log(o);
                     _.each(o, (value, key) => {
                         Solicitud.findOne({
                             'idInstancia': value.idInstancia
                         }, (err, Sol) => {
                             if (err) return reject(err);
                             let count=0;
-                            console.log(Sol);
                             _.each(O, (value, key) => {
                                 if (value.idInstancia === Sol.idInstancia) {
                                     value.solicitud = {};
@@ -67,6 +64,7 @@
             }
             findPromise(O)
                 .then((O) => {
+                  console.log("GET /tareas");
                     res.jsonp(O);
                 })
                 .catch((err) => {
@@ -82,7 +80,6 @@
         const headers = {
             'Accept': 'application/json'
         };
-        console.log(urlIniciar);
         request.post({
             url: urlIniciar,
             headers: headers
