@@ -2,8 +2,7 @@
   'use strict';
 
   const geocoder = require('geocoder');
-
-  exports = module.exports = function(app, mongoose) {
+  const mongoose = require('mongoose');
 
     const Comentarios = new mongoose.Schema({
       titulo: String,
@@ -76,8 +75,6 @@
       console.log('this gets printed first');
     });
 
-    mongoose.model('Solicitud', SolicitudSchema);
+    module.exports = mongoose.model('Solicitud', SolicitudSchema);
 
-
-  };
 })();

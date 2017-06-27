@@ -21,7 +21,7 @@
     });
 
     //Modelos de Datos
-    const Solicitud = require('./modelos/solicitud')(app, mongoose);
+    const Solicitud = require('./modelos/solicitud');
     const Usuario = require('./modelos/usuario')(app, mongoose);
     const Verificacion = require('./modelos/verificacion')(app, mongoose);
     // Controladores de las Rutas
