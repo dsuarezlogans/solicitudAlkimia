@@ -64,7 +64,7 @@
 
     mongoose.model('Solicitud', SolicitudSchema);
 
-    SolicitudSchema.pre('validate', (next) => {
+    SolicitudSchema.pre('save', (next) => {
       let solicitud = this;
       const busqueda = solicitud.direccion;
       geocoder.geocode(busqueda, function(err, data) {
