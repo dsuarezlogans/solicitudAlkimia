@@ -49,12 +49,10 @@
         type: "String"
       },
       lat: {
-        type: String,
-        default: ' '
+        type: String
       },
       lng: {
-        type: String,
-        default: ' '
+        type: String
       },
       ingreso: Number,
       monto_credito: Number,
@@ -62,9 +60,7 @@
       estado_solicitud: String
     });
 
-    mongoose.model('Solicitud', SolicitudSchema);
-
-    SolicitudSchema.pre('save', (next) => {
+    SolicitudSchema.pre('validate', (next) => {
       let solicitud = this;
 
       solicitud.lat = 43;//data.results[0].geometry.location.lat;
@@ -79,5 +75,9 @@
       });
       console.log('this gets printed first');
     });
+
+    mongoose.model('Solicitud', SolicitudSchema);
+
+
   };
 })();
