@@ -59,7 +59,7 @@
       estado_solicitud: String
     });
 
-    SolicitudSchema.pre('validate', (next) => {
+    SolicitudSchema.pre('save', (next) => {
       let solicitud = this;
 
       solicitud.lat = 43;//data.results[0].geometry.location.lat;
