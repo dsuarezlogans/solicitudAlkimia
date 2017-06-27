@@ -59,6 +59,7 @@
             numero_instancia: req.body.numero_instancia,
             comentarios: req.body.comentarios,
             estado_solicitud: req.body.estado_solicitud,
+            ingreso: req.body.ingreso
         });
 
         solicitud.save((err, solicitud) => {
@@ -85,6 +86,7 @@
             solicitud.comentarios = req.body.comentarios;
             solicitud.estado_solicitud = req.body.estado_solicitud;
             solicitud.nota_verificacion = req.body.nota_verificacion;
+            solicitud.ingreso = req.body.ingreso;
 
             solicitud.save((err) => {
               console.log('PUT /solicitud/',req.params.id);
