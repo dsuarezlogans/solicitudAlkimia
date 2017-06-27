@@ -50,11 +50,11 @@
       },
       lat: {
         type: String,
-        required: [true, 'Error: Latitud no asignada']
+        // required: [true, 'Error: Latitud no asignada']
       },
       lng: {
         type: String,
-        required: [true, 'Error: Longitud no asignada']
+        // required: [true, 'Error: Longitud no asignada']
       },
       ingreso: Number,
       monto_credito: Number,
