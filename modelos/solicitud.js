@@ -66,6 +66,9 @@
 
     SolicitudSchema.pre('save', (next) => {
       let solicitud = this;
+
+      solicitud.lat = 43;//data.results[0].geometry.location.lat;
+      solicitud.lng = 99;//data.results[0].geometry.location.lng;
       const busqueda = solicitud.direccion;
       console.log('PRE SAVE');
       geocoder.geocode(busqueda, function(err, data) {
