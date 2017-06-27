@@ -59,19 +59,6 @@
       estado_solicitud: String
     });
 
-    SolicitudSchema.pre('save', (next) => {
-      let solicitud = this;      
-      const busqueda = solicitud.direccion;
-      console.log('PRE SAVE');
-      geocoder.geocode(busqueda, function(err, data) {
-        solicitud.lat = 43;//data.results[0].geometry.location.lat;
-        solicitud.lng = 99;//data.results[0].geometry.location.lng;
-        console.log(solicitud);
-        next();
-      });
-      console.log('this gets printed first');
-    });
-
     module.exports = mongoose.model('Solicitud', SolicitudSchema);
 
 })();

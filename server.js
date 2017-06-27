@@ -28,6 +28,7 @@
     const ctrlSolicitud = require('./controladores/solicitud');
     const ctrlUsuario = require('./controladores/usuario');
     const ctrlVerificacion = require('./controladores/verificacion');
+    const ctrlUbicacion = require('./controladores/ubicacion');
     // HTTP Cliente BPM
     const reqBpm = require('./rest-client/bpm');
 
@@ -53,7 +54,7 @@
     //API RESt Solicitud
     rutas.route('/solicitud')
          .get(ctrlSolicitud.findAllSolicitud)
-         .post(ctrlSolicitud.addSolicitud);
+         .post(ctrlUbicacion.ubicacion, ctrlSolicitud.addSolicitud);
     rutas.route('/solicitud/:id')
          .get(ctrlSolicitud.findById)
          .put(ctrlSolicitud.updateSolicitud);

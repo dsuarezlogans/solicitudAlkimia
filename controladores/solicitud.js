@@ -59,7 +59,9 @@
             numero_instancia: req.body.numero_instancia,
             comentarios: req.body.comentarios,
             estado_solicitud: req.body.estado_solicitud,
-            ingreso: req.body.ingreso
+            ingreso: req.body.ingreso,
+            lat: req.body.lat,
+            lng: req.body.lng
         });
 
         solicitud.save((err, solicitud) => {
