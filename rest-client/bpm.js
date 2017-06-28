@@ -162,11 +162,9 @@
     exports.señalInstancia = (req, res) => {
         const signal = req.params.signal;
         const id = req.params.id;
-        let event = req.params.event;
+        const event = req.params.event;
 
-        if(signal === 'varIngreso') event = parseInt(req.params.event);
-
-        const urlSignal = 'http://' + req.params.user + ':' + req.params.pass + `@${baseUrl}/rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/instance/${id}/signal?signal=${signal}&event=${event}`;
+        const urlSignal = 'http://' + req.params.user + ':' + req.params.pass + `@${baseUrl}/rest/runtime/com.originacionCredito:originacionCredito:LATEST/process/instance/${id}/signal?signal=${signal}&event="${event}"`;
         const headers = {
             'Accept': 'application/json'
         };
