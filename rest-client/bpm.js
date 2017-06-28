@@ -162,7 +162,7 @@
     exports.señalInstancia = (req, res) => {
         const signal = req.params.signal;
         const id = req.params.id;
-        const event = req.params.event;
+        let event = req.params.event;
 
         if(signal === 'varIngreso') event = parseInt(req.params.event);
 
