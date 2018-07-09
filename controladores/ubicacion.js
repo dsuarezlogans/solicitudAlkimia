@@ -5,14 +5,16 @@
   const geocoder = require('geocoder');
 
   exports.ubicacion = (req, res, next) => {
-
     const busqueda = req.body.direccion;
     console.log(busqueda);
     geocoder.geocode(busqueda, function(err, data) {
+      if (err) {
+        console.log(err);
+        next();
+      }
       req.body.lat = data.results[0].geometry.location.lat;
-      req.body.lng = data.results[0].geometry.location.lng;      
+      req.body.lng = data.results[0].geometry.location.lng;
       next();
     });
-
   };
-}());
+})();

@@ -8,7 +8,7 @@
   const q = require('q');
   const Solicitud = mongoose.model('Solicitud');
   const baseUrl =
-    'eec2-35-160-211-48.us-west-2.compute.amazonaws.com:8080/business-central';
+    'ec2-35-160-211-48.us-west-2.compute.amazonaws.com:8080/business-central';
 
   exports.listaTareas = (req, res) => {
     var O = [];

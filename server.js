@@ -54,7 +54,7 @@
     //API RESt Solicitud
     rutas.route('/solicitud')
          .get(ctrlSolicitud.findAllSolicitud)
-         .post(ctrlUbicacion.ubicacion, ctrlSolicitud.addSolicitud);
+         .post(ctrlSolicitud.addSolicitud);
     rutas.route('/solicitud/:id')
          .get(ctrlSolicitud.findById)
          .put(ctrlSolicitud.updateSolicitud);
